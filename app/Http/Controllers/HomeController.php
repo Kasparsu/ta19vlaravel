@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        echo "hello laravel";
+        return view('home');
     }
-    public function routeParameter($name, $id){
-        dd($name, $id);
-    }
+
 }
