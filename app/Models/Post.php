@@ -14,7 +14,7 @@ class Post extends Model
     }
 
     public function getSnippetAttribute(){
-        return explode("\n\n", $this->body)[0];
+        return explode("<br><br>", $this->body)[0];
     }
 
     public function getBodyAttribute($value) {
