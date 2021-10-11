@@ -15,8 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return response()->view('posts', compact('posts'));
+        $posts = Post::paginate();
+        return response()->view('posts.index', compact('posts'));
     }
 
     /**
@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return response()->view('posts.create');
     }
 
     /**
@@ -37,7 +37,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        return response()->redirectTo('/admin/posts');
     }
 
     /**
@@ -49,7 +53,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //$post = Post::findOrFail($id);
-        return response()->view('post', compact('post'));
+        return response()->view('posts.show', compact('post'));
     }
 
     /**

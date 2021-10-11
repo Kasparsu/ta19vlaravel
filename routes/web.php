@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
-Route::get('/posts', [\App\Http\Controllers\HomeController::class, 'posts']);
-Route::get('/articles/{post}', [\App\Http\Controllers\HomeController::class, 'post'])->whereNumber('post')->name('post');
-
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/posts', [HomeController::class, 'posts']);
+Route::get('/posts/{post}', [HomeController::class, 'post'])->whereNumber('post')->name('post');
+Route::get('/admin/posts', [PostController::class, 'index']);
+Route::get('/admin/posts/create', [PostController::class, 'create']);
+Route::post('/admin/posts', [PostController::class, 'store']);
 
