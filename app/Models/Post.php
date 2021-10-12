@@ -9,15 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function getTitleAttribute($value){
-        return ucfirst($value) . '.';
-    }
+//    public function getTitleAttribute($value){
+//        return ucfirst($value) . '.';
+//    }
 
     public function getSnippetAttribute(){
-        return explode("<br><br>", $this->body)[0];
+        return explode("\n\n", $this->body)[0];
     }
 
-    public function getBodyAttribute($value) {
-        return str_replace("\n\n",'<br><br>', $value);
+    public function getDisplayBodyAttribute() {
+        return nl2br($this->body);
     }
 }

@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/posts', [HomeController::class, 'posts']);
 Route::get('/posts/{post}', [HomeController::class, 'post'])->whereNumber('post')->name('post');
-Route::get('/admin/posts', [PostController::class, 'index']);
-Route::get('/admin/posts/create', [PostController::class, 'create']);
-Route::post('/admin/posts', [PostController::class, 'store']);
+Route::resource('/admin/posts', PostController::class);
+//Route::get('/admin/posts', [PostController::class, 'index']);
+//Route::get('/admin/posts/create', [PostController::class, 'create']);
+//Route::post('/admin/posts', [PostController::class, 'store']);
+//Route::get('/admin/posts/{post}/edit', [PostController::class, 'edit']);
+//Route::post('/admin/posts/{post}', [PostController::class, 'update']);
+//Route::get('/admin/posts/{post}/delete', [PostController::class, 'destroy']);
 
