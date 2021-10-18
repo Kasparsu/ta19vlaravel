@@ -38,9 +38,9 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $post = new Post();
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post = new Post($request->validated());
+//        $post->title = $request->input('title');
+//        $post->body = $request->input('body');
         $post->save();
         return response()->redirectTo('/admin/posts');
     }
@@ -75,10 +75,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Post $post)
+    public function update(CreatePostRequest $request, Post $post)
     {
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
+//        $post->title = $request->input('title');
+//        $post->body = $request->input('body');
+        $post->fill($request->validated());
         $post->save();
         return response()->redirectTo('/admin/posts');
     }

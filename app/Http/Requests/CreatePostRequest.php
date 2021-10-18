@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreatePostRequest extends FormRequest
 {
@@ -23,9 +24,15 @@ class CreatePostRequest extends FormRequest
      */
     public function rules()
     {
+        $rule = Rule::unique('posts');
+        if(request()->route('post')){
+            $rule = $rule->ignore(request()->route('post'));
+        }
+
         return [
-            'title' => ['required', 'max:255', 'unique:posts'],
-            'body' => ['required']
+            'title' => ['required', 'max:255', $rule],
+            'body' => ['required'],
+            'image' => 'image'
         ];
     }
 }
