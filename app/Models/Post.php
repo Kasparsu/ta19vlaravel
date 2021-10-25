@@ -16,6 +16,10 @@ class Post extends Model
 //        return ucfirst($value) . '.';
 //    }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     public function setImageAttribute(UploadedFile $image){
        $path = $image->store('public');
        $this->image_path = Storage::url($path);

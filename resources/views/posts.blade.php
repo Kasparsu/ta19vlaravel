@@ -27,6 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <p class="card-text">{{ $post->snippet }}</p>
+                        <p class="card-text text-muted">{{ $post->user->name }}</p>
                         <a href="{{route('post', ['post' => $post->id])}}" class="card-link">Read more</a>
                     </div>
                 </div>
