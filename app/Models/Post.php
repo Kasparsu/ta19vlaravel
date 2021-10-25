@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
@@ -33,5 +34,11 @@ class Post extends Model
         return nl2br($this->body);
     }
 
-    // @todo remove image when model is deleted
+    protected static function booted()
+    {
+        static::deleting(function ($post) {
+            dd($post->image_path);
+            //File::delete()
+        });
+    }
 }

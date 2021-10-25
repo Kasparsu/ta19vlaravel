@@ -12,9 +12,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/posts">Posts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('posts.index')}}">Admin</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('posts.index')}}">Admin</a>
+                    </li>
+                @endauth
             </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
