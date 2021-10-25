@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -14,6 +15,11 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(1000)->create();
+        $users = User::all();
+        foreach($users as $user){
+            Post::factory(100)->create(['user_id'=> $user->id]);
+        }
+
+        //Post::factory(1000)->create();
     }
 }

@@ -26,3 +26,13 @@ Route::resource('/admin/posts', PostController::class);
 //Route::post('/admin/posts/{post}', [PostController::class, 'update']);
 //Route::get('/admin/posts/{post}/delete', [PostController::class, 'destroy']);
 
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('/home', function() {
+        return view('home');
+    })->name('home');
+
+    Route::get('/user/profile', function() {
+        return view('profile');
+    })->name('profile');
+});
