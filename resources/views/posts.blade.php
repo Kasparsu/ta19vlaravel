@@ -21,13 +21,16 @@
         @foreach($posts as $post)
             <div class="col">
                 <div class="card mt-3">
-                    @if($post->image_path)
-                        <img src="{{$post->image_path}}" class="card-img-top">
+                    @if($post->images->count() > 1)
+                       @include('partials.carousel', ['images' => $post->images, 'id' => $post->id])
+                    @elseif($post->images->count() == 1)
+                        <img src="{{$post->images->first()->path}}" class="card-img-top">
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <p class="card-text">{{ $post->snippet }}</p>
                         <p class="card-text text-muted">{{ $post->user->name }}</p>
+                        <p class="card-text text-muted">{{ $post->created_at->diffForHumans() }}</p>
                         <a href="{{route('post', ['post' => $post->id])}}" class="card-link">Read more</a>
                     </div>
                 </div>

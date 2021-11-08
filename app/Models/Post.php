@@ -21,6 +21,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class)->latest();
+    }
+
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+
     public function setImageAttribute(UploadedFile $image){
        $path = $image->store('public');
        $this->image_path = Storage::url($path);
@@ -36,9 +44,8 @@ class Post extends Model
 
     protected static function booted()
     {
-        static::deleting(function ($post) {
-            dd($post->image_path);
-            //File::delete()
+        static::deleted(function ($post) {
+            File::delete(public_path($post->image_path));
         });
     }
 }

@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $user->save();
         $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(CommentSeeder::class);
+        $this->call(ImageSeeder::class);
     }
 }
