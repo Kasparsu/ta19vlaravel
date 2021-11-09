@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\UserOwnsPost;
 use App\Http\Requests\CreatePostRequest;
+use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostController extends Controller
@@ -49,6 +51,12 @@ class PostController extends Controller
 //        $post->title = $request->input('title');
 //        $post->body = $request->input('body');
         $post->save();
+        foreach ($request->validated()['image'] as $image) {
+            $path = $image->store('public');
+            $image = new Image();
+            $image->path = Storage::url($path);
+            $post->images()->save($image);
+        }
         return response()->redirectTo('/admin/posts');
     }
 

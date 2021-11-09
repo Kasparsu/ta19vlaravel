@@ -12,7 +12,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['body', 'title', 'image'];
+    protected $fillable = ['body', 'title'];
 //    public function getTitleAttribute($value){
 //        return ucfirst($value) . '.';
 //    }
@@ -29,9 +29,15 @@ class Post extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function setImageAttribute(UploadedFile $image){
-       $path = $image->store('public');
-       $this->image_path = Storage::url($path);
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
+    public function getAuthHasLikedAttribute(){
+        if(auth()->check()) {
+            return $this->likes()->where('user_id', auth()->user()->id)->exists();
+        }
+        return false;
     }
 
     public function getSnippetAttribute(){

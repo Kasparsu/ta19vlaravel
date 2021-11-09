@@ -30,6 +30,7 @@ Route::get('/posts/{post}', [HomeController::class, 'post'])->whereNumber('post'
 Route::middleware(['auth'])->group(function() {
     Route::resource('/admin/posts', PostController::class);
     Route::post('/post/{post}', [\App\Http\Controllers\CommentController::class, 'store']);
+    Route::get('/post/{post}/like', [\App\Http\Controllers\LikeController::class, 'store'])->name('post.like');
     Route::get('/user/profile', function() {
         return view('profile');
     })->name('profile');

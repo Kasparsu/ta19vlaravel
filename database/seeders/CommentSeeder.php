@@ -22,8 +22,7 @@ class CommentSeeder extends Seeder
         foreach ($posts as $post){
             Comment::factory(rand(0, 10))
                 ->make([
-                    'post_id' => $post->id,
-                    'user_id' => User::inRandomOrder()->first()->id
+                    'post_id' => $post->id
                 ])->each(function ($comment) use($post, $faker) {
                     $created = $faker->dateTimeBetween($post->created_at, 'now');
                     $updated = $faker->dateTimeBetween($created, 'now');
@@ -32,6 +31,7 @@ class CommentSeeder extends Seeder
                     }
                     $comment->updated_at = $updated;
                     $comment->created_at = $created;
+                    $comment->user_id = User::inRandomOrder()->first()->id;
                     $comment->save();
                 });
         }

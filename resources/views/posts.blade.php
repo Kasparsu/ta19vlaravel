@@ -31,6 +31,17 @@
                         <p class="card-text">{{ $post->snippet }}</p>
                         <p class="card-text text-muted">{{ $post->user->name }}</p>
                         <p class="card-text text-muted">{{ $post->created_at->diffForHumans() }}</p>
+                        <p class="card-text text-muted"><b>Comments:</b>{{ $post->comments()->count() }}</p>
+                        <p class="card-text text-muted"><b>Likes:</b>{{ $post->likes()->count() }}</p>
+
+                        <a href="{{route('post.like', ['post' => $post->id])}}" class="card-link">
+                           @if($post->auth_has_liked)
+                                Unlike
+                           @else
+                                Like
+                           @endif
+                        </a>
+
                         <a href="{{route('post', ['post' => $post->id])}}" class="card-link">Read more</a>
                     </div>
                 </div>
