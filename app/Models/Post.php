@@ -33,6 +33,10 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function getAuthHasLikedAttribute(){
         if(auth()->check()) {
             return $this->likes()->where('user_id', auth()->user()->id)->exists();
