@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +31,9 @@ Route::get('/tag/{tag}', [HomeController::class, 'tag']);
 
 Route::middleware(['auth'])->group(function() {
     Route::resource('/admin/posts', PostController::class);
-    Route::post('/post/{post}', [\App\Http\Controllers\CommentController::class, 'store']);
-    Route::get('/post/{post}/like', [\App\Http\Controllers\LikeController::class, 'store'])->name('post.like');
+    Route::post('/post/{post}', [CommentController::class, 'store']);
+    Route::get('/post/{post}/like', [LikeController::class, 'postLike'])->name('post.like');
+    Route::get('/post/comment/{comment}/like', [LikeController::class, 'commentLike'])->name('comment.like');
     Route::get('/user/profile', function() {
         return view('profile');
     })->name('profile');

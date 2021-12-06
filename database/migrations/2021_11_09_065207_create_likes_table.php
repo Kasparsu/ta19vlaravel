@@ -16,9 +16,10 @@ class CreateLikesTable extends Migration
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->string('likable_type');
+            $table->unsignedBigInteger('likable_id');
             $table->timestamps();
-            $table->unique(['user_id', 'post_id']);
+            $table->unique(['user_id', 'likable_type', 'likable_id']);
         });
     }
 

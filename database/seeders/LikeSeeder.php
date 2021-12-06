@@ -24,6 +24,15 @@ class LikeSeeder extends Seeder
                 $like->user_id = $users[$key]->id;
                 $like->save();
             });
+
+            foreach ($post->comments as $comment){
+                $rand = rand(0,20);
+                $users = User::inRandomOrder()->take($rand)->get();
+                Like::factory($rand)->make(['comment_id' => $comment->id])->each(function ($like, $key) use ($users){
+                    $like->user_id = $users[$key]->id;
+                    $like->save();
+                });
+            }
         }
     }
 }

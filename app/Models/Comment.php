@@ -16,4 +16,14 @@ class Comment extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
+    public function getAuthHasLikedAttribute(){
+        if(auth()->check()) {
+            return $this->likes()->where('user_id', auth()->user()->id)->exists();
+        }
+        return false;
+    }
 }

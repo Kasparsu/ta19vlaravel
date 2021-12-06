@@ -31,6 +31,14 @@
                 <p class="card-text">{{ $comment->body }}</p>
                 <p class="card-text text-muted">{{ $comment->user->name }}</p>
                 <p class="card-text text-muted">{{ $comment->created_at->diffForHumans() }}</p>
+                <p class="card-text text-muted"><b>Likes:</b>{{ $comment->likes()->count() }}</p>
+                <a href="{{route('comment.like', ['comment' => $comment->id])}}" class="card-link">
+                    @if($comment->auth_has_liked)
+                        Unlike
+                    @else
+                        Like
+                    @endif
+                </a>
             </div>
         </div>
     @endforeach

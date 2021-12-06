@@ -17,6 +17,10 @@ class Post extends Model
 //        return ucfirst($value) . '.';
 //    }
 
+    protected $with = ['user'];
+
+    protected $appends = ['snippet'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
