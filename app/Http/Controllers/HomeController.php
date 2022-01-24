@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -38,5 +39,9 @@ class HomeController extends Controller
     public function tag(Tag $tag){
         $posts = $tag->posts()->paginate();
         return response()->view('posts', compact('posts'));
+    }
+    public function user(User $user){
+        $posts = $user->posts()->paginate();
+        return response()->view('posts', compact('posts', 'user'));
     }
 }

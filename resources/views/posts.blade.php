@@ -17,6 +17,16 @@
             @endif
         </div>
     </div>
+    @isset($user)
+        <div class="card">
+            <div class="card-body">
+                <h1>{{$user->name}}</h1>
+                <p><b>Posts:</b>{{$user->posts()->count()}}</p>
+                <p><b>Comments:</b>{{$user->comments()->count()}}</p>
+                <p><b>Comments on Posts:</b>{{$user->commentsOnPosts()->count()}}</p>
+            </div>
+        </div>
+    @endif
     <div class="row row-cols-4">
         @foreach($posts as $post)
             <div class="col">
@@ -29,7 +39,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <p class="card-text">{{ $post->snippet }}</p>
-                        <p class="card-text text-muted">{{ $post->user->name }}</p>
+                        <p class="card-text text-muted">  <a href="{{route('user', ['user' => $post->user])}}" class="card-link">{{ $post->user->name }}</a></p>
                         <p class="card-text text-muted">{{ $post->created_at->diffForHumans() }}</p>
                         <p class="card-text text-muted"><b>Comments:</b>{{ $post->comments()->count() }}</p>
                         <p class="card-text text-muted"><b>Likes:</b>{{ $post->likes()->count() }}</p>
