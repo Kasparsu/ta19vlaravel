@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('posts', [\App\Http\Controllers\PostController::class, 'posts']);
+
+Route::get('proxy/{path}', [\App\Http\Controllers\ApiController::class, 'proxy'])->where('path', '.*');
+
+Route::get('posts/new', [\App\Http\Controllers\ApiController::class, 'getNewPosts']);
