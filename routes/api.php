@@ -23,3 +23,4 @@ Route::get('posts', [\App\Http\Controllers\PostController::class, 'posts']);
 Route::get('proxy/{path}', [\App\Http\Controllers\ApiController::class, 'proxy'])->where('path', '.*');
 
 Route::get('posts/new', [\App\Http\Controllers\ApiController::class, 'getNewPosts']);
+Route::get('posts/new/long', [\App\Http\Controllers\ApiController::class, 'getNewPostsOrWait']);

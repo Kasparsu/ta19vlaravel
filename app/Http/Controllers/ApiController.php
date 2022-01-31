@@ -22,4 +22,16 @@ class ApiController extends Controller
             ->whereTime('created_at', '>',Carbon::createFromTimeString($request->query('from')) )->get();
         return $posts;
     }
+
+    public function getNewPostsOrWait(Request $request){
+
+        do {
+            $posts = Post::whereDate('created_at', '>=', Carbon::createFromTimeString($request->query('from')))
+                ->whereTime('created_at', '>', Carbon::createFromTimeString($request->query('from')))->get();
+            if(!$posts->count()){
+                sleep(1);
+            }
+        } while(!$posts->count());
+        return $posts;
+    }
 }
